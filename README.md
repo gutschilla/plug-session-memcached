@@ -3,7 +3,7 @@ Plug.Session.MEMCACHED
 
 This is a veeery simple memcached session store for Elixir's plug.
 
-## MOTIVATION: Why memcached when there's an ETS or Cookie store?
+## Motivation: Why memcached when there's an ETS or Cookie store?
 
 A short discussion: I am probably wrong.
 
