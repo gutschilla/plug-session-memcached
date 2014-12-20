@@ -1,0 +1,4 @@
+PlugSessionMemcached
+====================
+
+** TODO: Add description **

@@ -1,0 +1,2 @@
+defmodule PlugSessionMemcached do
+end
