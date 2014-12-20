@@ -1,4 +1,4 @@
-defmodule PlugSessionMemcached.Mixfile do
+defmodule Plug.Session.MEMCACHED.Mixfile do
   use Mix.Project
 
   def project do
@@ -25,6 +25,8 @@ defmodule PlugSessionMemcached.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    []
+    [
+      {:mcd, github: "EchoTeam/mcd"}, # memcached driver
+    ]
   end
 end
