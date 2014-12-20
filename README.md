@@ -3,6 +3,33 @@ Plug.Session.MEMCACHED
 
 This is a veeery simple memcached session store for Elixir's plug.
 
+## Synopsis
+
+Add thi to your mixfile:
+
+```
+defp deps do
+  [
+    # below 0.1.2 is doesn't work
+    {:plug_session_memcached, github: "gutschilla/plug-session-memcached", tag: "v0.1.2" } 
+  ]
+end
+```
+
+Then, after the occassional `mix do deps.get, compile` use plug.Session.MEMCACHED
+
+In phoenix, configure your session
+
+session: [ store: :memcached, key: "skeletion2_key", table: :memcached_sessions ],
+
+## TODO
+
+Need to create a small service with Cowboy answering http request with some
+session data in them.
+
+Add this to hex, more favourably something better than this gets added to plug's
+main distribution.
+
 ## Motivation: Why memcached when there's an ETS or Cookie store?
 
 A short discussion: I am probably wrong.
