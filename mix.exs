@@ -1,4 +1,4 @@
-defmodule PlugSessionMemcached.Mixfile do
+defmodule Plug.Session.MEMCACHED.Mixfile do
   use Mix.Project
 
   def project do
