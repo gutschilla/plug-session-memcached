@@ -1,7 +1,9 @@
 Plug.Session.MEMCACHED
 ======================
 
-This is a veeery simple memcached session store for Elixir's plug.
+This is a very simple memcached session store for Elixir's plug. I use it in
+conjunction with the great
+[Phoenix Framework](https://github.com/phoenixframework/phoenix).
 
 ## Synopsis
 
@@ -11,7 +13,7 @@ Add thi to your mixfile:
 # will create a mcd connection to memcached as :memcached_sessions
 def application do
   [
-    mod: {Skeleton3, []},
+    ...
     applications: [
         ...
         :plug_session_memcached
