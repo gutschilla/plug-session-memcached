@@ -1,73 +1,22 @@
-defmodule Plug.Session.MEMCACHED do
-    @moduledoc """
-    Stores the session in a memcached table.
+defmodule PlugSessionMemcached do
+  use Application
 
-    ## Vserion 0.2
+  # See http://elixir-lang.org/docs/stable/elixir/Application.html
+  # for more information on OTP Applications
+  def start(_type, _args) do
+    import Supervisor.Spec, warn: false
 
-    * 0.2 - change arities of delete, get, put to match phoenix 0.5.0
-
-    An established MEMCACHED connection instance via mcd is required for this
-    store to work.
-
-    This store does not create the MEMCACHED connection, it is expected that an
-    existing named connection is given as argument with  public properties.
-
-    ## Options
-
-    * `:table` - memcached connection process name (required);
-
-    ## Examples
-
-    # Creatememcached connection on application start, we'll call this process
-    # memcached_sessions (use what you like)
+    # start memcached for sessions
     :mcd.start_link(:memcached_sessions, [] )
 
-    # Use the session plug with the connection process name
-    key = "myapp_session_id"
-    plug Plug.Session,  store: :memcached, key: key, table: :memcached_sessions
+    children = [
+      # Define workers and child supervisors to be supervised
+      # worker(PlugSessionMemcached.Worker, [arg1, arg2, arg3])
+    ]
 
-
-    See:
-    https://github.com/EchoTeam/mcd
-
-    ## Acknowledgements
-    This module is based on Plug.Session.Store.ETS
-    Most parts are just copied from there and adapted to :mcd instead of :ets.
-    """
-
-    @behaviour Plug.Session.Store
-
-    @max_tries 100
-
-    def init(opts) do
-        Keyword.fetch!(opts, :table)
-    end
-
-    def get( _conn, sid, table) do
-        case :mcd.get( table, sid ) do
-          {:error, :noproc}   -> raise "cannot find memcached proc"
-          {:error, :notfound} -> {nil, %{}}
-          {:ok, data }        -> {sid, data}
-        end
-    end
-
-    def put( _conn, nil, data, table) do
-        put_new(data, table)
-    end
-
-    def put( _conn, sid, data, table) do
-        :mcd.set( table, sid, data )
-    sid
-    end
-
-    def delete( _conn, sid, table) do
-        :mcd.delete(table, sid)
-        :ok
-    end
-
-    defp put_new(data, table, counter \\ 0)
-        when counter < @max_tries do
-            sid = :crypto.strong_rand_bytes(96) |> Base.encode64
-        put( nil, sid, data, table )
-    end
+    # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
+    # for other strategies and supported options
+    opts = [strategy: :one_for_one, name: PlugSessionMemcached.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
 end

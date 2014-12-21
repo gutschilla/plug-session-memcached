@@ -1,4 +1,4 @@
-defmodule Plug.Session.MEMCACHED.Mixfile do
+defmodule PlugSessionMemcached.Mixfile do
   use Mix.Project
 
   def project do
@@ -12,7 +12,8 @@ defmodule Plug.Session.MEMCACHED.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger]]
+    [applications: [:logger],
+     mod: {PlugSessionMemcached, []}]
   end
 
   # Dependencies can be Hex packages:
