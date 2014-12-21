@@ -8,19 +8,41 @@ This is a veeery simple memcached session store for Elixir's plug.
 Add thi to your mixfile:
 
 ```
+# will create a mcd connection to memcached as :memcached_sessions
+def application do
+  [
+    mod: {Skeleton3, []},
+    applications: [
+        ...
+        :plug_session_memcached
+    ]
+  ]
+end
+
+# add dependency
 defp deps do
   [
-    # below 0.1.2 is doesn't work
-    {:plug_session_memcached, github: "gutschilla/plug-session-memcached", tag: "v0.1.2" } 
+    ...
+    {:plug_session_memcached, github: "gutschilla/plug-session-memcached", branch: "master" } 
+    
   ]
 end
 ```
 
-Then, after the occassional `mix do deps.get, compile` use plug.Session.MEMCACHED
+instead of master, I think 0.2.0 was the first usable version
+`{:plug_session_memcached, github: "gutschilla/plug-session-memcached", tag: "v0.2.0" }`
 
-In phoenix, configure your session
+Then use the plug
+```
+plug Plug.Session,
+  store: :memcached,
+  key: "_my_app_key", # use a proper value 
+  table: :memcached_sessions,
+  signing_salt: "123456",   # use a proper value
+  encryption_salt: "654321" # use a proper value
+```
 
-session: [ store: :memcached, key: "skeletion2_key", table: :memcached_sessions ],
+In phoenix (adduming version 0.7.2), add the lines above to your lib/enpoint.ex
 
 ## TODO
 
