@@ -32,4 +32,22 @@ defmodule PlugSessionMemcached.Mixfile do
     {:mcd, github: "EchoTeam/mcd"}, # memcached driver
     ]
   end
+
+  defp description do
+    """
+    This is a very simple memcached session store for Elixir's plug. I use it in conjunction with the great
+    [Phoenix Framework](https://github.com/phoenixframework/phoenix).
+    """
+  end
+  
+  defp package do
+    [# These are the default files included in the package
+     files: ["lib", "priv", "mix.exs", "README*", "readme*", "LICENSE*", "license*"],
+     contributors: ["Martin Gutsch"],
+     licenses: ["MIT"],
+     #links: %{"GitHub" => "https://github.com/ericmj/postgrex",
+     #         "Docs" => "http://ericmj.github.io/postgrex/"}
+     ]
+  end
+  
 end
