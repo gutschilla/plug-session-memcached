@@ -5,6 +5,8 @@ defmodule PlugSessionMemcached.Mixfile do
     [app: :plug_session_memcached,
      version: "0.2.2",
      elixir: "~> 1.0",
+     package: package,
+     description: description,
      deps: deps]
   end
 
