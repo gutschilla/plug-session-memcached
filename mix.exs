@@ -3,7 +3,7 @@ defmodule PlugSessionMemcached.Mixfile do
 
   def project do
     [app: :plug_session_memcached,
-     version: "0.2.2",
+     version: "0.2.3",
      elixir: "~> 1.0",
      package: package,
      description: description,
@@ -47,8 +47,10 @@ defmodule PlugSessionMemcached.Mixfile do
      files: ["lib", "priv", "mix.exs", "README*", "readme*", "LICENSE*", "license*"],
      contributors: ["Martin Gutsch"],
      licenses: ["MIT"],
-     #links: %{"GitHub" => "https://github.com/ericmj/postgrex",
-     #         "Docs" => "http://ericmj.github.io/postgrex/"}
+     links: %{
+        "GitHub" => "https://github.com/gutschilla/plug-session-memcached"
+        # "Docs" => "http://ericmj.github.io/postgrex/"
+      }
      ]
   end
   
