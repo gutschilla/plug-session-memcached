@@ -16,7 +16,7 @@ def application do
     ...
     applications: [
         ...
-        :plug_session_memcached
+        :plug_session_memcached # <--- add this entry
     ]
   ]
 end
@@ -25,7 +25,7 @@ end
 defp deps do
   [
     ...
-    {:plug_session_memcached, github: "gutschilla/plug-session-memcached", branch: "master" } 
+    {:plug_session_memcached, github: "gutschilla/plug-session-memcached", branch: "master" } # <-- add this entry
     
   ]
 end
