@@ -25,36 +25,30 @@ end
 defp deps do
   [
     ...
-    {:plug_session_memcached, github: "gutschilla/plug-session-memcached", branch: "master" } # <-- add this entry
+    {:plug_session_memcached, "~> 0.2.0" } # <-- add this entry
     
   ]
 end
 ```
-
-instead of master, I think 0.2.0 was the first usable version
-`{:plug_session_memcached, github: "gutschilla/plug-session-memcached", tag: "v0.2.0" }`
 
 Then use the plug
 ```
 plug Plug.Session,
   store: :memcached,
   key: "_my_app_key", # use a proper value 
-  table: :memcached_sessions,
+  table: :memcached_sessions, # <-- this on is hard coded into the plug
   signing_salt: "123456",   # use a proper value
   encryption_salt: "654321" # use a proper value
 ```
 
-In phoenix (adduming version 0.7.2), add the lines above to your lib/enpoint.ex
+In phoenix (version 0.7.2 and above), add the lines above to your lib/enpoint.ex
 
 ## TODO
 
-Need to create a small service with Cowboy answering http request with some
+Add tests: create a small service with Cowboy answering http request with some
 session data in them.
 
-Add this to hex, more favourably something better than this gets added to plug's
-main distribution.
-
-## Motivation: Why memcached when there's an ETS or Cookie store?
+## Motivation: Why Memcached when there's an ETS or Cookie store?
 
 A short discussion: I am probably wrong.
 
@@ -63,24 +57,27 @@ A short discussion: I am probably wrong.
 While it's so great and simple to store session data in the cookie
 itself, it has some downsides:
 
-Data should be tamper-proof as they will be signed by your secret but one can
-still see hwat data is in the cookie and even it was encrypted on can easiliy
-see that there actually *is* session data as the cookie grows.
+Even when the cookie is encrypted and signed, there is still some information 
+about the size of information stored in it.
 
 Apart from changing your session key there's no easy way to invalidate a certain
-session cookie. For example: A user logs in and you assign the value "user",
-<user_id> or soething like taht to you session data. Someone (possibly evil)
-could record that cookie. When user logs out you might remive the user value
-from the session. But if someone re-uses the old cookie (because he/she stole
-it), your app might still think that user is logged in.
+session cookie. For example: A user logs in and you assign the value "user_id",
+<user_id> to your session data. Someone could record that cookie. 
 
-Of course, you could save login status in a database ... but I think one shouldn't
+When the user logs out all that happens is that the cookie now says user_id: nil.
+
+When you (or some evil guy who recorded that cookie) manually set the cookie data to 
+the previous encrypted string => you're logged in again because the server which
+IMHO should be the single point of truth has no records of who's logged in or not.
+
+Of course, you could save login status in a database ... but I think one shouldn't.
 
 ### ETS
 
 Plug.Session.MEMCACHED.ETS solves the problem of cookies by only storing a
-sesseion id in the cookie. But here goes the problem: If you application crashed
-or you need to restart it, all session data is gone.
+session id in the cookie. But here goes the problem: If you application crashed
+or you need to restart it, all session data is gone. Maybe this is a relict of
+my old stateless HTTP thinking.
 
 ### DETS
 
@@ -94,9 +91,10 @@ have to compare it against ETS (which I assume to be faster as one can spare the
 TCP overhead) but for generall purpose it's very fast and should not be a
 bottleneck.
 
-Memcached service doesn't go away with you application. A thing that certainly
-often happens in development. If you really watt to, you can delete all your
+Memcached service doesn't go away with your application. A thing that certainly
+often happens in development. If you really want to, you can delete all your
 data just be restarting memcached. ETS or DETS would give you more options on
 what data to delete.
 
 All in all, storing session data in memcached seems to me like the best fit.
+
