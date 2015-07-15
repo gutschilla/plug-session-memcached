@@ -3,7 +3,7 @@ defmodule PlugSessionMemcached.Mixfile do
 
   def project do
     [app: :plug_session_memcached,
-     version: "0.2.3",
+     version: "0.2.5",
      elixir: "~> 1.0",
      package: package,
      description: description,
@@ -30,7 +30,7 @@ defmodule PlugSessionMemcached.Mixfile do
   defp deps do
     [
     {:cowboy, "~> 1.0.0"},
-    {:plug, "~> 0.11.0"},
+    {:plug, "~> 0.13.0"},
     {:mcd, github: "EchoTeam/mcd"}, # memcached driver
     ]
   end
