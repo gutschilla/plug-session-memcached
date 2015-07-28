@@ -3,7 +3,7 @@ defmodule PlugSessionMemcached.Mixfile do
 
   def project do
     [app: :plug_session_memcached,
-     version: "0.2.5",
+     version: "0.2.6",
      elixir: "~> 1.0",
      package: package,
      description: description,
