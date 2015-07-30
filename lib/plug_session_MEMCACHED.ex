@@ -44,23 +44,23 @@ defmodule Plug.Session.MEMCACHED do
       # Keyword.fetch!(opts, :table)
     end
 
-    def get( _conn, sid) do
+    def get( _conn, sid, _table ) do
         case :mcd.getkey( sid ) do
           :undefined -> { nil, %{} }
           data       -> { sid, data }
         end
     end
 
-    def put( _conn, nil, data) do
+    def put( _conn, nil, data, _table ) do
         put_new(data)
     end
 
-    def put( _conn, sid, data) do
+    def put( _conn, sid, data, _table ) do
         :merle.set( sid, data )
     sid
     end
 
-    def delete( _conn, sid) do
+    def delete( _conn, sid, _table ) do
         :merle.delete(sid)
         :ok
     end
@@ -68,6 +68,6 @@ defmodule Plug.Session.MEMCACHED do
     defp put_new(data, counter \\ 0)
         when counter < @max_tries do
             sid = :crypto.strong_rand_bytes(96) |> Base.encode64
-        put( nil, sid, data )
+        put( nil, sid, data, nil )
     end
 end
