@@ -8,7 +8,7 @@ defmodule PlugSessionMemcached do
 
     # start memcached for sessions
     # :mcd.start_link(:memcached_sessions, [] )
-    :merle.connect()
+    # :merle.connect()
 
     children = [
       # Define workers and child supervisors to be supervised

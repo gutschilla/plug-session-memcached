@@ -40,7 +40,7 @@ defmodule Plug.Session.MEMCACHED do
 
     @max_tries 100
 
-    def init(opts) do
+    def init(_opts) do
       # Keyword.fetch!(opts, :table)
     end
 
