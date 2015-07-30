@@ -8,11 +8,11 @@ defmodule PlugSessionMemcached do
 
     # start memcached for sessions
     # :mcd.start_link(:memcached_sessions, [] )
+    :merle.connect()
 
     children = [
       # Define workers and child supervisors to be supervised
       # worker(PlugSessionMemcached.Worker, [arg1, arg2, arg3])
-      worker( :mcd, [ :memcached_sessions, [ '127.0.0.1', 11211 ] ] )
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

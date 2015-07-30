@@ -29,9 +29,10 @@ defmodule PlugSessionMemcached.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-    {:cowboy, "~> 1.0.0"},
-    {:plug, "~> 0.13.0"},
-    {:mcd, github: "EchoTeam/mcd"}, # memcached driver
+      {:cowboy, "~> 1.0.0"},
+      {:plug, "~> 0.13.0"},
+      # {:mcd, github: "EchoTeam/mcd"}, # memcached driver
+      {:merle, github: "joewilliams/merle", branch: "master", app: false }, # older memcached driver
     ]
   end
 

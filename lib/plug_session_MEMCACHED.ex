@@ -1,9 +1,10 @@
 defmodule Plug.Session.MEMCACHED do
     @moduledoc """
-    Stores the session in a memcached table.
+    Stores the session in a memcached instance.
 
-    ## Vserion 0.2
+    ## Vserion 0.3
 
+    * 0.3 - switch to :merle in favour of :mcd as I could not convince :mcd.startlink() not to raise an error when started in a release(?)
     * 0.2 - change arities of delete, get, put to match phoenix 0.5.0
 
     An established MEMCACHED connection instance via mcd is required for this
@@ -14,25 +15,25 @@ defmodule Plug.Session.MEMCACHED do
 
     ## Options
 
-    * `:table` - memcached connection process name (required);
+    none.
 
     ## Examples
 
     # Creatememcached connection on application start, we'll call this process
     # memcached_sessions (use what you like)
-    :mcd.start_link(:memcached_sessions, [] )
+    :merle.connect()
 
     # Use the session plug with the connection process name
     key = "myapp_session_id"
-    plug Plug.Session,  store: :memcached, key: key, table: :memcached_sessions
+    plug Plug.Session,  store: :memcached, key: key
 
 
     See:
-    https://github.com/EchoTeam/mcd
+    https://github.com/joewilliams/merle/blob/master/src/merle.erl
 
     ## Acknowledgements
     This module is based on Plug.Session.Store.ETS
-    Most parts are just copied from there and adapted to :mcd instead of :ets.
+    Most parts are just copied from there and adapted to :merle instead of :ets.
     """
 
     @behaviour Plug.Session.Store
@@ -40,34 +41,33 @@ defmodule Plug.Session.MEMCACHED do
     @max_tries 100
 
     def init(opts) do
-        Keyword.fetch!(opts, :table)
+      # Keyword.fetch!(opts, :table)
     end
 
-    def get( _conn, sid, table) do
-        case :mcd.get( table, sid ) do
-          {:error, :noproc}   -> raise "cannot find memcached proc"
-          {:error, :notfound} -> {nil, %{}}
-          {:ok, data }        -> {sid, data}
+    def get( _conn, sid) do
+        case :mcd.getkey( sid ) do
+          :undefined -> { nil, %{} }
+          data       -> { sid, data }
         end
     end
 
-    def put( _conn, nil, data, table) do
-        put_new(data, table)
+    def put( _conn, nil, data) do
+        put_new(data)
     end
 
-    def put( _conn, sid, data, table) do
-        :mcd.set( table, sid, data )
+    def put( _conn, sid, data) do
+        :merle.set( sid, data )
     sid
     end
 
-    def delete( _conn, sid, table) do
-        :mcd.delete(table, sid)
+    def delete( _conn, sid) do
+        :merle.delete(sid)
         :ok
     end
 
-    defp put_new(data, table, counter \\ 0)
+    defp put_new(data, counter \\ 0)
         when counter < @max_tries do
             sid = :crypto.strong_rand_bytes(96) |> Base.encode64
-        put( nil, sid, data, table )
+        put( nil, sid, data )
     end
 end

@@ -5,5 +5,6 @@
   "goldrush": {:git, "git://github.com/DeadZen/goldrush.git", "1d883423ac360b3536ca52dc733a0164bacf3109", [tag: "0.1.5"]},
   "lager": {:git, "git://github.com/basho/lager.git", "ad400896af5b1ad8b4f7a4d34e609b5a990640bb", [tag: "2.0.1"]},
   "mcd": {:git, "git://github.com/EchoTeam/mcd.git", "4a282234795ecb31f93f59fbaea7940276a0a179", []},
+  "merle": {:git, "git://github.com/joewilliams/merle.git", "60b4251026825860ce3827ba1e6b15dab8e68fd9", [branch: "master"]},
   "plug": {:hex, :plug, "0.13.0"},
   "ranch": {:hex, :ranch, "1.1.0"}}
