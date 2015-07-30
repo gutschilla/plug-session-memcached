@@ -45,7 +45,7 @@ defmodule Plug.Session.MEMCACHED do
     end
 
     def get( _conn, sid, _table ) do
-        case :mcd.getkey( sid ) do
+        case :merle.getkey( sid ) do
           :undefined -> { nil, %{} }
           data       -> { sid, data }
         end
