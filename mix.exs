@@ -45,7 +45,7 @@ defmodule PlugSessionMemcached.Mixfile do
   defp package do
     [# These are the default files included in the package
      files: ["lib", "priv", "mix.exs", "README*", "readme*", "LICENSE*", "license*"],
-     contributors: ["Martin Gutsch"],
+     maintainers: ["Martin Gutsch"],
      licenses: ["MIT"],
      links: %{
         "GitHub" => "https://github.com/gutschilla/plug-session-memcached"
