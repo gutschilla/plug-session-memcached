@@ -45,9 +45,9 @@ In phoenix (version 0.7.2 and above), add the lines above to your lib/enpoint.ex
 
 ## TODO
 
- [ ] Add tests: create a small service with Cowboy answering http request with some session data in them.
- [ ] Let memcached server/port be configurable from config.exs
- [ ] Add proper docs
+ - [ ] Add tests: create a small service with Cowboy answering http request with some session data in them.
+ - [ ] Let memcached server/port be configurable from config.exs
+ - [ ] Add proper docs
 
 ## Motivation: Why Memcached when there's an ETS or Cookie store?
 
