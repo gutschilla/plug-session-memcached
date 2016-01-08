@@ -45,7 +45,7 @@ plug Plug.Session,
   encryption_salt: "654321" # use a proper value
 ```
 
-In phoenix (version 0.7.2 and above), add the lines above to your lib/enpoint.ex
+In phoenix (version 1.0 and above), add the lines above to your lib/enpoint.ex
 
 ## TODO
 
