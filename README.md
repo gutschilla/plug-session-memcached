@@ -7,7 +7,7 @@ conjunction with the great
 
 ## Synopsis
 
-Add thi to your mixfile:
+Add this to your mixfile:
 
 ```
 # will create a mcd connection to memcached as :memcached_sessions
@@ -25,11 +25,15 @@ end
 defp deps do
   [
     ...
-    {:plug_session_memcached, "~> 0.2.0" } # <-- add this entry
-    
+    {:plug_session_memcached, "~> 0.2.0" }, # <-- add this entry
+    {:mcd, github: "EchoTeam/mcd"}          # <-- and this one 
   ]
 end
 ```
+
+Be sure to manually include :mcd as hex won't fetch guthub dependencies
+automatically for you. At some point I might switch to tsharju's
+:memcache_client which should do the same.
 
 Then use the plug
 ```
@@ -45,7 +49,7 @@ In phoenix (version 0.7.2 and above), add the lines above to your lib/enpoint.ex
 
 ## TODO
 
- [ ] Add tests: create a small service with Cowboy answering http request with some session data in them.
+ [x] Add tests: create a small service with Cowboy answering http request with some session data in them.
  [ ] Let memcached server/port be configurable from config.exs
  [ ] Add proper docs
 
