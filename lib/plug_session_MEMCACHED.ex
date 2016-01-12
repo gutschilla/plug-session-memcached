@@ -47,6 +47,7 @@ defmodule Plug.Session.MEMCACHED do
         case :mcd.get( table, sid ) do
           {:error, :noproc}   -> raise "cannot find memcached proc"
           {:error, :notfound} -> {nil, %{}}
+          {:error, :noconn} -> {nil, %{}}
           {:ok, data }        -> {sid, data}
         end
     end
