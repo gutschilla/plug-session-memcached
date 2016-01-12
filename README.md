@@ -24,7 +24,7 @@ end
 defp deps do
   [
     ...
-    {:plug_session_memcached, "~> 0.3.0" }, # <-- add this entry
+    {:plug_session_memcached, "~> 0.3.1" }, # <-- add this entry
     {:mcd, github: "EchoTeam/mcd"}          # <-- and this one 
   ]
 end
