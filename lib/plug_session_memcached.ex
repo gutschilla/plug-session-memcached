@@ -12,12 +12,34 @@ defmodule PlugSessionMemcached do
     children = [
       # Define workers and child supervisors to be supervised
       # worker(PlugSessionMemcached.Worker, [arg1, arg2, arg3])
-      worker( :mcd, [ :memcached_sessions, [ '127.0.0.1', 11211 ] ] )
+      # worker( :mcd, [ :memcached_sessions, [ '127.0.0.1', 11211 ] ] )
+      supervisor( PlugSessionMemcached.Supervisor, [] )
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: PlugSessionMemcached.Supervisor]
-    Supervisor.start_link(children, opts)
+    { :ok, _pid } = Supervisor.start_link(children, opts)
   end
+
+end
+
+defmodule PlugSessionMemcached.Supervisor do
+  use Supervisor
+
+  def start_link arg \\ [] do
+    Supervisor.start_link __MODULE__, arg
+  end
+  
+  def init arg do
+    children = [
+      worker( :mcd, [
+          :memcached_sessions,
+          Application.get_env( :plug_session_memcached, :server  ) || [ '127.0.0.1', 11211 ],
+        ]
+      )
+    ]
+    supervise children, strategy: :one_for_one
+  end
+
 end
