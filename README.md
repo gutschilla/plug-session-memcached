@@ -1,12 +1,11 @@
 Plug.Session.MEMCACHED
 ======================
+A  memcached session store for Elixir's plug. 
 
-This is a very simple memcached session store for Elixir's plug. I use it in
-conjunction with the great
-[Phoenix Framework](https://github.com/phoenixframework/phoenix).
+## Support
+I use it in conjunction with the great [Phoenix Framework](https://github.com/phoenixframework/phoenix). If you encounter any issues, I'll be glad if you gave me notice.
 
 ## Synopsis
-
 Add these to your project's `mix.exs`:
 ```
 # will create a mcd connection to memcached as :memcached_sessions
