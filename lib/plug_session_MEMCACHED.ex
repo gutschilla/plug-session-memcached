@@ -2,8 +2,13 @@ defmodule Plug.Session.MEMCACHED do
     @moduledoc """
     Stores the session in a memcached table.
 
-    ## Vserion 0.2
+    ## Usage 
 
+    See PlugSessionMemcached, issue `h PlugSessionMemcached` in an iex shell
+
+    ## Version 0.3.3
+
+    * 0.3 - make memcached instance configurable
     * 0.2 - change arities of delete, get, put to match phoenix 0.5.0
 
     An established MEMCACHED connection instance via mcd is required for this

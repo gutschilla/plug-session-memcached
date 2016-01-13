@@ -7,21 +7,23 @@ defmodule PlugSessionMemcached do
   This plug is to be used as store for Plug.Session. It saves session data in
   a memcached instance providing just a session id being saved in the user's 
   cookie. 
+
+  Provides Plug.Session.MEMCACHED
   
   ## Usage
    1. Configure the connection to a memcached instance:
       ```
       config :plug_memcached_sessions, ['127.0.0.1', 11211 ]
       ```
-    2. In your app, use and configure Plug.Session
-    ```
-    plug Plug.Session,
-      store: :memcached,
-      key: "_my_app_key", # use a proper value 
-      table: :memcached_sessions, # <-- this on is hard coded into the plug
-      signing_salt: "123456",   # use a proper value
-      encryption_salt: "654321" # use a proper value
-    ```
+  2. In your app, use and configure Plug.Session
+     ```
+     plug Plug.Session,
+       store: :memcached,
+       key: "_my_app_key", # use a proper value 
+       table: :memcached_sessions, # <-- this on is hard coded into the plug
+       signing_salt: "123456",   # use a proper value
+       encryption_salt: "654321" # use a proper value
+     ```
   
   ## Limitations
   
@@ -61,7 +63,7 @@ defmodule PlugSessionMemcached.Supervisor do
     Supervisor.start_link __MODULE__, arg
   end
   
-  def init arg do
+  def init _arg do
     children = [
       worker( :mcd, [
           :memcached_sessions,

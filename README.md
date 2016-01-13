@@ -2,6 +2,13 @@ Plug.Session.MEMCACHED
 ======================
 A  memcached session store for Elixir's plug. 
 
+## Description
+
+Provides the application :plug_session_memcahed to be 
+included in your app. This will create connection to 
+a memcached server instance. Then, you may use the plug
+`Plug.Session.MEMCACHED`, presumably in a Phoenix endpoint.
+
 ## Support
 I use it in conjunction with the great [Phoenix Framework](https://github.com/phoenixframework/phoenix). If you encounter any issues, I'll be glad if you gave me notice.
 
@@ -52,12 +59,6 @@ plug Plug.Session,
 ```
 
 In phoenix (version 1.0 and above), add the lines above to your lib/enpoint.ex
-
-## TODO
-
- [x] Add tests: create a small service with Cowboy answering http request with some session data in them.
- [x] Let memcached server/port be configurable from config.exs
- [ ] Add proper docs
 
 ## Motivation: Why Memcached when there's an ETS or Cookie store?
 A short discussion: I am probably wrong.
