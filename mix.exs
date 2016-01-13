@@ -3,7 +3,7 @@ defmodule PlugSessionMemcached.Mixfile do
 
   def project do
     [app: :plug_session_memcached,
-     version: "0.3.2",
+     version: "0.3.3",
      elixir: "~> 1.0",
      package: package,
      description: description,
@@ -37,8 +37,7 @@ defmodule PlugSessionMemcached.Mixfile do
 
   defp description do
     """
-    This is a very simple memcached session store for Elixir's plug. I use it in conjunction with the great
-    [Phoenix Framework](https://github.com/phoenixframework/phoenix).
+    A memcached session store for use with Plug.Session
     """
   end
   
