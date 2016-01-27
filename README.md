@@ -63,12 +63,19 @@ plug Plug.Session,
   encryption_salt: "654321" # use a proper value
 ```
 
-In phoenix (version 1.0 and above), add the lines above to your lib/enpoint.ex
+In phoenix (version 1.0 and above), add the lines above to your `lib/<yourapp>/endpoint.ex`. For an example, see [endpoint.ex in my skeleton app repo](https://github.com/gutschilla/phoenix-skeleton/blob/master/lib/skeleton/endpoint.ex)
 
 ## Motivation: Why Memcached when there's an ETS or Cookie store?
-A short discussion: I am probably wrong.
+A short discussion: I am probably wrong. 
 
-### Cookies
+I am using memcached for session storage for over a decade now in conjunction with many languages and web frameworks. And it just works great:
+
+- for me, memcached is battle-proven. Not a single issue in a decade
+- support for memcached server clusters (mcd apparently doesn't support this)
+- 1MB of session storage (default memcached bucket size) as long `:erlang.term_to_binary(<your_session_data>)` fits in a megabyte
+- no need for a distributed erlang setup in a load-balanced scenario: sessions are like a database on a simgle-purpose machine.
+
+### Downside of Cookies
 While it's so great and simple to store session data in the cookie
 itself, it has some downsides:
 
@@ -80,6 +87,7 @@ session cookie. For example: A user logs in and you assign the value "user_id",
 <user_id> to your session data. Someone could record that cookie and simply re-use it. 
 
 IMHO the server should be the single source of truth for login states.
+
 ### ETS
 Plug.Session.MEMCACHED.ETS solves the problem of cookies by only storing a
 session id in the cookie. But it's hard to access from outside of you App and 
