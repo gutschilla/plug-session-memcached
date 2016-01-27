@@ -14,6 +14,8 @@ I use it in conjunction with the great [Phoenix Framework](https://github.com/ph
 
 ## Synopsis
 Add these to your project's `mix.exs`:
+Adding both `:lager` and `:corman` to your `applications` section is required to make thing work if you plan to create a release with the great [exrm](https://github.com/bitwalker/exrm) tool. Also make sure to add the plug to `included_applications`.
+
 ```
 # will create a mcd connection to memcached as :memcached_sessions
 def application do
@@ -21,6 +23,9 @@ def application do
     ...
     applications: [
         ...
+       :lager, :corman # <-- add these both (mcd needs them)
+    ],
+    included_applications: [
         :plug_session_memcached # <--- add this entry
     ]
   ]
