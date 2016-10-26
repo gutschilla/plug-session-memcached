@@ -73,7 +73,7 @@ I am using memcached for session storage for over a decade now in conjunction wi
 - for me, memcached is battle-proven. Not a single issue in a decade
 - support for memcached server clusters (mcd apparently doesn't support this)
 - 1MB of session storage (default memcached bucket size) as long `:erlang.term_to_binary(<your_session_data>)` fits in a megabyte
-- no need for a distributed erlang setup in a load-balanced scenario: sessions are like a database on a simgle-purpose machine.
+- no need for a distributed erlang setup in a load-balanced scenario: sessions are like a database on a single-purpose machine.
 
 ### Downside of Cookies
 While it's so great and simple to store session data in the cookie
@@ -90,9 +90,9 @@ IMHO the server should be the single source of truth for login states.
 
 ### ETS
 Plug.Session.MEMCACHED.ETS solves the problem of cookies by only storing a
-session id in the cookie. But it's hard to access from outside of you App and 
-if your app needs to restart all your session data is lost which doesn't come 
-handy in development or production (unless hotcode reoad is your cup of tea).
+session id in the cookie. But it's hard to access from outside of your App and 
+if your app needs to restart all your session data is lost which doesn't come in
+handy in development or production (unless hot code reloading is your cup of tea).
 
 ### DETS
 Yeah, would be a nice option. But I like session data to be in-memory. When the
@@ -101,7 +101,7 @@ server crashes session data is gone anyways.
 ## So Memcached is best?
 Certainly not for all purposes, but for mine. Pro: memcached is fast. I still
 have to compare it against ETS (which I assume to be faster as one can spare the
-TCP overhead) but for generall purpose it's very fast and should not be a
+TCP overhead) but for general purpose it's very fast and should not be a
 bottleneck.
 
 Memcached service doesn't go away with your application. A thing that certainly
