@@ -16,7 +16,7 @@ I use it in conjunction with the great [Phoenix Framework](https://github.com/ph
 Add these to your project's `mix.exs`:
 Adding both `:lager` and `:corman` to your `applications` section is required to make thing work if you plan to create a release with the great [exrm](https://github.com/bitwalker/exrm) tool. Also make sure to add the plug to `included_applications`.
 
-```
+```elixir
 # will create a mcd connection to memcached as :memcached_sessions
 def application do
   [
@@ -42,7 +42,7 @@ end
 ```
 
 You may want to alter the standard memcached host/port in your `config.exs` (or `dev.exs` or `prod.exs`). If no config is given, host `127.0.0.1` and port `11211` is used:
-```
+```elixir
 # be sure to use a binary for the host the underlying memcached connector is written in Erlang)
 # server: [ <host_binary>, <port_integer> ]
 config :plug_session_memcached,
@@ -54,7 +54,7 @@ automatically for you. At some point I might switch to tsharju's
 :memcache_client which should do the same.
 
 Then use the plug
-```
+```elixir
 plug Plug.Session,
   store: :memcached,
   key: "_my_app_key", # use a proper value 
