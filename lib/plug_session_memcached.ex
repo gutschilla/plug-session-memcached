@@ -126,6 +126,7 @@ defmodule Plug.Session.MEMCACHED do
     end
 
     def get( _conn, sid, table) do
+        :mcd.start_link(table, [])
         case :mcd.get( table, sid ) do
           {:error, :noproc}   -> raise "cannot find memcached proc"
           {:error, :notfound} -> {nil, %{}}
@@ -139,6 +140,7 @@ defmodule Plug.Session.MEMCACHED do
     end
 
     def put( _conn, sid, data, table) do
+        :mcd.start_link(table, [])
         :mcd.set( table, sid, data )
     sid
     end
