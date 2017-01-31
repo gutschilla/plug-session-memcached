@@ -5,9 +5,9 @@ defmodule PlugSessionMemcached.Mixfile do
     [app: :plug_session_memcached,
      version: "0.3.3",
      elixir: "~> 1.0",
-     package: package,
-     description: description,
-     deps: deps]
+     package: package(),
+     description: description(),
+     deps: deps()]
   end
 
   # Configuration for the OTP application
@@ -42,7 +42,7 @@ defmodule PlugSessionMemcached.Mixfile do
     A memcached session store for use with Plug.Session
     """
   end
-  
+
   defp package do
     [# These are the default files included in the package
      files: ["lib", "mix.exs", "README*", "LICENSE*"],
@@ -54,5 +54,5 @@ defmodule PlugSessionMemcached.Mixfile do
       }
      ]
   end
-  
+
 end
