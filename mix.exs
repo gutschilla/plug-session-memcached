@@ -3,7 +3,7 @@ defmodule PlugSessionMemcached.Mixfile do
 
   def project do
     [app: :plug_session_memcached,
-     version: "0.3.3",
+     version: "0.3.4",
      elixir: "~> 1.0",
      package: package,
      description: description,
@@ -32,8 +32,7 @@ defmodule PlugSessionMemcached.Mixfile do
       {:cowboy, "~> 1.0.0"},
       {:plug, ">= 0.13.0"},
       {:mcd, github: "EchoTeam/mcd"}, # memcached driver
-      {:earmark, ">= 0.0.0"},
-      {:ex_doc, ">= 0.10.0"}
+      {:ex_doc, "~> 0.16", only: :dev, runtime: false} # generate docs
     ]
   end
 
