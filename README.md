@@ -4,7 +4,7 @@ A  memcached session store for Elixir's plug.
 
 ## Description
 
-Provides the application :plug_session_memcahed to be 
+Provides the application :plug_session_memcached to be 
 included in your app. This will create connection to 
 a memcached server instance. Then, you may use the plug
 `Plug.Session.MEMCACHED`, presumably in a Phoenix endpoint.
